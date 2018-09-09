@@ -22,6 +22,9 @@ public class User {
     @Column(name = "nick")
     private String nick;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "status")
     private UserStatus status;
 
