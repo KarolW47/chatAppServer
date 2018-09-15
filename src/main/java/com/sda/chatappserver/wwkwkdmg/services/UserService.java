@@ -6,4 +6,5 @@ public interface UserService {
     User saveUserToDB(User user);
 
     User getUserFromDb(String login, String password);
+
 }

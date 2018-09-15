@@ -19,6 +19,7 @@ public class UserServiceImp implements UserService {
     @Override
     public User saveUserToDB(User user) {
         user.setStatus(UserStatus.away);
+        user.setLogStatus(false);
         return userRepository.save(user);
     }
 
@@ -26,4 +27,5 @@ public class UserServiceImp implements UserService {
     public User getUserFromDb(String login, String password) {
         return userRepository.findUserByNickAndPassword(login, password);
     }
+
 }

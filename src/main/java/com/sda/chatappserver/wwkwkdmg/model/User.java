@@ -7,8 +7,6 @@ import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Setter
@@ -41,4 +39,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @NonNull
+    @Column(name = "logStatus")
+    private boolean logStatus;
 }
