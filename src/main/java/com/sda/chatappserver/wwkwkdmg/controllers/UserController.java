@@ -1,12 +1,12 @@
 package com.sda.chatappserver.wwkwkdmg.controllers;
 
 import com.sda.chatappserver.wwkwkdmg.model.User;
-import com.sda.chatappserver.wwkwkdmg.model.UserStatus;
-import com.sda.chatappserver.wwkwkdmg.repository.UserRepository;
+import com.sda.chatappserver.wwkwkdmg.services.SaveNewUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,28 +14,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private SaveNewUserService createUserService;
 
-    @RequestMapping("/")
+    @Autowired
+    public UserController(SaveNewUserService createUserService) {
+        this.createUserService = createUserService;
+    }
+
+    @RequestMapping("indexPage")
     public String getIndexPage() {
         return "index";
     }
 
-    @RequestMapping("/login")
-    public String getLoginPage() {
-        return "login";
-    }
-
-    @RequestMapping("/register")
-    public String getRegisterPage(){
+    @RequestMapping("registerPage")
+    public String getRegisterPage() {
         return "register";
     }
 
-    @RequestMapping(path = "/registerUser", method = RequestMethod.POST)
+    @PostMapping
+    @RequestMapping("registerUser")
     public String addNewUser(@ModelAttribute User user) {
-        user.setStatus(UserStatus.away);
-        userRepository.save(user);
+        createUserService.saveUserToDB(user);
         return "index";
     }
 }

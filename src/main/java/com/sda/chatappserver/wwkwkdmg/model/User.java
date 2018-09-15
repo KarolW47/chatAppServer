@@ -25,6 +25,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Enumerated(value = EnumType.ORDINAL)
     @Column(name = "status")
     private UserStatus status;
 
