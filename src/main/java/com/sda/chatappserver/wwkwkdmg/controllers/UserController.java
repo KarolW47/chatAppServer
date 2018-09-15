@@ -1,24 +1,23 @@
 package com.sda.chatappserver.wwkwkdmg.controllers;
 
 import com.sda.chatappserver.wwkwkdmg.model.User;
-import com.sda.chatappserver.wwkwkdmg.services.SaveNewUserService;
+import com.sda.chatappserver.wwkwkdmg.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("")
 public class UserController {
 
-    private SaveNewUserService createUserService;
+    private UserService userService;
 
     @Autowired
-    public UserController(SaveNewUserService createUserService) {
-        this.createUserService = createUserService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping("indexPage")
@@ -34,7 +33,15 @@ public class UserController {
     @PostMapping
     @RequestMapping("registerUser")
     public String addNewUser(@ModelAttribute User user) {
-        createUserService.saveUserToDB(user);
+        userService.saveUserToDB(user);
         return "index";
     }
+
+    @PostMapping
+    @RequestMapping("loginUser")
+    public String loginUser(@ModelAttribute User user) {
+        userService.getUserFromDb(user.getNick(),user.getPassword());
+        return "chatApp";
+    }
+
 }

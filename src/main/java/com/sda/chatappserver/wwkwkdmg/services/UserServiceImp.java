@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SaveNewUserServiceImp implements SaveNewUserService {
+public class UserServiceImp implements UserService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public SaveNewUserServiceImp(UserRepository userRepository) {
+    public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -20,5 +20,10 @@ public class SaveNewUserServiceImp implements SaveNewUserService {
     public User saveUserToDB(User user) {
         user.setStatus(UserStatus.away);
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserFromDb(String login, String password) {
+        return userRepository.findUserByNickAndPassword(login, password);
     }
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -15,30 +15,31 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "message_id")
     private Long id;
 
     @NonNull
-    @Column(name = "nick")
-    private String nick;
+    @Column(name = "sender")
+    private Long sender;
 
     @NonNull
-    @Column(name = "password")
-    private String password;
+    @Column(name = "recipient")
+    private Long recipient;
+
+    @NonNull
+    @Column(name = "message_text")
+    private String text;
+
+    @NonNull
+    @Column(name = "message_date")
+    private Date date;
 
     @Enumerated(value = EnumType.ORDINAL)
-    @Column(name = "status")
-    private UserStatus status;
-
-    @Column(name = "status_txt")
-    private String statusTxt;
-
-    @NonNull
-    @Column(name = "email")
-    private String email;
+    @Column(name = "message_status")
+    private MessageStatus messageStatus;
 
 }
