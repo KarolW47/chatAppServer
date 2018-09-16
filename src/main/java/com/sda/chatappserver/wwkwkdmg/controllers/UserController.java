@@ -47,7 +47,7 @@ public class UserController {
             user.setLogStatus(true);
             Cookie cookie = new Cookie("cookieAppChat", userToLogin.getId().toString());
             response.addCookie(cookie);
-            return "chatApp";
+            return "redirect:/chatApp";
 
         } else {
             return "index";

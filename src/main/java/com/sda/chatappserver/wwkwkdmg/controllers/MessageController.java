@@ -5,14 +5,10 @@ import com.sda.chatappserver.wwkwkdmg.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -28,8 +24,8 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @RequestMapping("/showMessage")
-    public String displayMessages(@ModelAttribute Model model) {
+    @RequestMapping("/chatApp")
+    public String displayMessages(Model model) {
         List<Message> messages = messageService.getAllMessages();
         messages.stream().limit(4);
         model.addAttribute("messages", messages);
@@ -38,7 +34,7 @@ public class MessageController {
 
     @PostMapping
     @RequestMapping("/addMessage")
-    public String addChatMessage(@ModelAttribute String messageToAdd, HttpServletRequest request) {
+    public String addChatMessage(@RequestParam String messageToAdd, HttpServletRequest request) {
         String idFromCookie = "";
         Optional<Cookie> first = Arrays.stream(request.getCookies())
                 .filter(cookie -> "cookieAppChat".equals(cookie.getName()))
@@ -55,6 +51,6 @@ public class MessageController {
             message.setMessageStatus(null);
             messageService.saveMessageToDB(message);
         }
-        return "chatApp";
+        return "redirect:/chatApp";
     }
 }
