@@ -7,8 +7,8 @@ import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Setter
@@ -26,7 +26,6 @@ public class Message {
     @Column(name = "sender")
     private Long sender;
 
-    @NonNull
     @Column(name = "recipient")
     private Long recipient;
 
@@ -36,7 +35,7 @@ public class Message {
 
     @NonNull
     @Column(name = "message_date")
-    private Date date;
+    private LocalDateTime messageDate;
 
     @Enumerated(value = EnumType.ORDINAL)
     @Column(name = "message_status")

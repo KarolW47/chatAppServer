@@ -2,12 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Siemano</title>
+    <title>Chat</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-    Tutaj okno!
-    <form action="/showLogedUser">
-    <!--<p th:text="${}">user</p>-->
+    Witaj w czacie!
+    <form action="/showMessage">
+        <table>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Message
+                </th>
+                <th>
+                    From
+                </th>
+            </tr>
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.messageDate}"></td>
+                <td th:text="${message.text}"></td>
+                <td th:text="${message.recipient}"></td>
+            </tr>
+        </table>
+    </form>
+    <form action="/showLoggedUsers">
+
+    </form>
+    <form action="/addMessage">
+        <textarea name="messageToAdd" rows="4" cols="70"></textarea>
+        <input type="submit" value="Send Message">
     </form>
 </body>
 </html>

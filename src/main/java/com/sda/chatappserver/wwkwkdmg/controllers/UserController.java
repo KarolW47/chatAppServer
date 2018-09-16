@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -40,8 +39,8 @@ public class UserController {
         return "index";
     }
 
-//    @PostMapping
-    @RequestMapping(value = "/loginUser", method = RequestMethod.POST)
+    @PostMapping
+    @RequestMapping(value = "/loginUser")
     public String loginUser(@ModelAttribute User user, HttpServletResponse response) {
         User userToLogin = userService.getUserFromDb(user.getNick(), user.getPassword());
         if (userToLogin != null) {

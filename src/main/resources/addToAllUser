@@ -1,0 +1,1 @@
+INSERT INTO USER VALUE ('toAll', 1, 'toAll','toAll@toAll.com' ,false);

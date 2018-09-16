@@ -8,5 +8,6 @@ public class WwkwkdmgApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WwkwkdmgApplication.class, args);
+
     }
 }
