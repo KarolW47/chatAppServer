@@ -2,8 +2,10 @@ package com.sda.chatappserver.wwkwkdmg.controllers;
 
 import com.sda.chatappserver.wwkwkdmg.model.User;
 import com.sda.chatappserver.wwkwkdmg.services.UserService;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,15 +36,20 @@ public class UserController {
 
     @PostMapping
     @RequestMapping("registerUser")
-    public String addNewUser(@ModelAttribute User user) {
-        userService.saveUserToDB(user);
-        return "index";
+    public String addNewUser(@ModelAttribute User user, Model model) {
+        if (userService.getUserFromDbByLogin(user.getNick()).isPresent()) {
+            model.addAttribute("existingLoginMsg","Podany login juz istnieje!");
+            return "register";
+        } else {
+            userService.saveUserToDB(user);
+            return "index";
+        }
     }
 
     @PostMapping
     @RequestMapping(value = "/loginUser")
-    public String loginUser(@ModelAttribute User user, HttpServletResponse response) {
-        User userToLogin = userService.getUserFromDb(user.getNick(), user.getPassword());
+    public String loginUser(@ModelAttribute User user, Model model, HttpServletResponse response) {
+        User userToLogin = userService.getUserFromDbByLoginAndPassword(user.getNick(), user.getPassword());
         if (userToLogin != null) {
             user.setLogStatus(true);
             Cookie cookie = new Cookie("cookieAppChat", userToLogin.getId().toString());
@@ -50,6 +57,7 @@ public class UserController {
             return "redirect:/chatApp";
 
         } else {
+            model.addAttribute("wrongLoginOrPasswordMsg", "Niepoprawny login lub haslo!");
             return "index";
         }
 

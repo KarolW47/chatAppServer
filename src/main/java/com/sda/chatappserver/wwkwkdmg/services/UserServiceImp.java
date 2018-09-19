@@ -6,6 +6,10 @@ import com.sda.chatappserver.wwkwkdmg.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserServiceImp implements UserService {
 
@@ -24,8 +28,24 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User getUserFromDb(String login, String password) {
+    public User getUserFromDbByLoginAndPassword(String login, String password) {
         return userRepository.findUserByNickAndPassword(login, password);
     }
 
+    @Override
+    public List<User> getUserListFromDb() {
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(usr -> users.add(usr));
+        return users;
+    }
+
+    @Override
+    public Optional<User> getUserFromDbByLogin(String nick) {
+        return Optional.ofNullable(userRepository.findByNick(nick));
+    }
+
+    @Override
+    public User getUserFromDbById(Long id) {
+        return userRepository.findById(id).get();
+    }
 }

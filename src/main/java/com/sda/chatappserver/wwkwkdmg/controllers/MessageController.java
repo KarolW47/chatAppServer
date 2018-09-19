@@ -4,14 +4,14 @@ import com.sda.chatappserver.wwkwkdmg.model.Message;
 import com.sda.chatappserver.wwkwkdmg.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,14 +22,6 @@ public class MessageController {
     @Autowired
     public MessageController(MessageService messageService) {
         this.messageService = messageService;
-    }
-
-    @RequestMapping("/chatApp")
-    public String displayMessages(Model model) {
-        List<Message> messages = messageService.getAllMessages();
-        messages.stream().limit(4);
-        model.addAttribute("messages", messages);
-        return "chatApp";
     }
 
     @PostMapping

@@ -10,34 +10,42 @@
     </style>
 </head>
 <body>
-Witaj w czacie!
+<script>
 
-<table>
-    <tr>
-        <th>
-            Date
-        </th>
-        <th>
-            Message
-        </th>
-        <th>
-            From
-        </th>
-    </tr>
-    <tr th:each="message : ${messages}">
-        <td th:text="${message.messageDate}">data</td>
-        <td th:text="${message.text}">text</td>
-        <td th:text="${message.recipient}">recip</td>
-    </tr>
-</table>
-
-<form action="/showLoggedUsers">
-
-</form>
-<br>
-<form action="/addMessage">
-    <textarea name="messageToAdd" rows="4" cols="70"></textarea>
-    <input type="submit" value="Send Message">
-</form>
+</script>
+<div>
+    <h1>Witaj w czacie!</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Data:</th>
+                <th>Wiadomosc:</th>
+                <th>Autor:</th>
+            </tr>
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.messageDate}">date</td>
+                <td th:text="${message.text}">text</td>
+                <td th:text="${message.sender}">sender</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>Uzytkownicy:</th>
+                <th>Status</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.nick}">nick</td>
+                <td th:text="${user.statusTxt}">statusTxt</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <form action="/addMessage">
+        <textarea name="messageToAdd" rows="4" cols="70"></textarea>
+        <input type="submit" value="Send">
+    </form>
+</div>
 </body>
 </html>

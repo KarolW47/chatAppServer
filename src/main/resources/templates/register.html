@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
@@ -19,5 +19,6 @@
 <form action="/indexPage">
     <button type="submit">Back</button>
 </form>
+<p style="color: red" th:text="${existingLoginMsg}"></p>
 </body>
 </html>
