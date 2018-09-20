@@ -2,7 +2,6 @@ package com.sda.chatappserver.wwkwkdmg.controllers;
 
 import com.sda.chatappserver.wwkwkdmg.model.User;
 import com.sda.chatappserver.wwkwkdmg.services.UserService;
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("")
@@ -24,21 +26,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("indexPage")
+    @RequestMapping(value = "indexPage")
     public String getIndexPage() {
         return "index";
     }
 
-    @RequestMapping("registerPage")
+    @RequestMapping(value = "registerPage")
     public String getRegisterPage() {
         return "register";
     }
 
     @PostMapping
-    @RequestMapping("registerUser")
+    @RequestMapping(value = "registerUser")
     public String addNewUser(@ModelAttribute User user, Model model) {
         if (userService.getUserFromDbByLogin(user.getNick()).isPresent()) {
-            model.addAttribute("existingLoginMsg","Podany login juz istnieje!");
+            model.addAttribute("existingLoginMsg", "Podany login juz istnieje!");
             return "register";
         } else {
             userService.saveUserToDB(user);
@@ -60,6 +62,17 @@ public class UserController {
             model.addAttribute("wrongLoginOrPasswordMsg", "Niepoprawny login lub haslo!");
             return "index";
         }
+    }
 
+    @RequestMapping(value = "/logOut")
+    public String logOutUser(HttpServletRequest request, HttpServletResponse response) {
+        Optional<Cookie> myCookie = Arrays.stream(request.getCookies())
+                .filter(cookie -> "cookieAppChat".equals(cookie.getName()))
+                .findFirst();
+        Cookie oldCookie = myCookie.get();
+        oldCookie.setMaxAge(0);
+        response.addCookie(oldCookie);
+
+        return "index";
     }
 }

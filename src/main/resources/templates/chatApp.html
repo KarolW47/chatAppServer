@@ -2,39 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Chat</title>
+    <title>ChatApp</title>
     <style>
-        table, th, td {
-            border: 1px solid black;
+        td {
+
+        }
+
+        textarea {
+            border-color: #4dc8fe;
+            border-radius: 5px;
+            border-width: 2px;
+            font-family: "Courier New";
+            font-size: large;
+        }
+
+        input {
+            width: 90px;
+            height: 30px;
+            background-color: #7efe93;
+            color: white;
+            border-radius: 5px;
+            border-style: hidden;
+            font-family: "Courier New";
+            font-size: larger;
         }
     </style>
 </head>
 <body>
 <script>
-
+    // window.onload = startInterval;
+    //
+    // function startInterval() {
+    //     setInterval(getNewMessages, 1000);
+    // }
+    //
+    // function myFunction(element) {
+    //     document.getElementById("myList").innerHTML = element;
+    // }
+    //
+    // var getNewMessages = function () {
+    //     var http = new XMLHttpRequest();
+    //     var url = "/chatApp";
+    //     http.onreadystatechange = function () {
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             var obj = this.responseText;
+    //             myFunction(obj);
+    //         }
+    //     };
+    //     http.open("GET", url, true);
+    //     http.send();
+    // }
 </script>
 <div>
-    <h1>Witaj w czacie!</h1>
+    <h1 style="font-family: 'Courier New'">Czat appka :)</h1>
     <div>
         <table>
-            <tr>
-                <th>Data:</th>
-                <th>Wiadomosc:</th>
-                <th>Autor:</th>
-            </tr>
-            <tr th:each="message : ${messages}">
-                <td th:text="${message.messageDate}">date</td>
-                <td th:text="${message.text}">text</td>
-                <td th:text="${message.sender}">sender</td>
-            </tr>
-        </table>
-    </div>
-    <div>
-        <table>
-            <tr>
-                <th>Uzytkownicy:</th>
-                <th>Status</th>
-            </tr>
             <tr th:each="user : ${users}">
                 <td th:text="${user.nick}">nick</td>
                 <td th:text="${user.statusTxt}">statusTxt</td>
@@ -42,8 +64,22 @@
         </table>
     </div>
     <br>
+    <form action="/logOut">
+        <input type="submit" value="Wyloguj">
+    </form>
+    <br>
+    <div>
+        <table id="myList">
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.sender}">sender</td>
+                <td th:text="${message.messageDate}">date</td>
+                <td th:text="${message.text}">text</td>
+            </tr>
+        </table>
+    </div>
+    <br>
     <form action="/addMessage">
-        <textarea name="messageToAdd" rows="4" cols="70"></textarea>
+        <textarea name="messageToAdd"></textarea>
         <input type="submit" value="Send">
     </form>
 </div>

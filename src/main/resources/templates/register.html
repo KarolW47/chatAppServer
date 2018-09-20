@@ -3,19 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <style>
+        input {
+            border-color: #4dc8fe;
+            border-radius: 5px;
+            border-width: 2px;
+            font-family: "Courier New";
+            font-size: large;
+        }
+
+        button {
+            width: 150px;
+            height: 30px;
+            background-color: #7efe93;
+            color: white;
+            border-radius: 5px;
+            border-style: hidden;
+            font-family: "Courier New";
+            font-size: larger;
+        }
+    </style>
 </head>
 <body>
-<h1>Rejestracja</h1>
+<h1 style="font-family: 'Courier New'">Rejestracja</h1>
 <form action=/registerUser method="post">
     Login:
     <input type="text" name="nick">
     <br>
+    <br>
     Haslo: <input type="password" name="password">
+    <br>
     <br>
     Email: <input type="text" name="email">
     <br>
+    <br>
     <button type="submit">Submit</button>
 </form>
+<br>
 <form action="/indexPage">
     <button type="submit">Back</button>
 </form>

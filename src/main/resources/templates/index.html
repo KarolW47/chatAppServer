@@ -3,25 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>CzatAppIndex</title>
+    <style>
+        .forTyping input {
+            border-color: #4dc8fe;
+            border-radius: 5px;
+            border-width: 2px;
+            font-family: "Courier New";
+            font-size: large;
+        }
+
+        .forButtons input {
+            width: 150px;
+            height: 30px;
+            background-color: #7efe93;
+            color: white;
+            border-radius: 5px;
+            border-style: hidden;
+            font-family: "Courier New";
+            font-size: larger;
+        }
+    </style>
 </head>
 <body>
-<h1>Witaj w czacie!</h1>
-<h2>Zaloguj sie:</h2>
+<h1 style="font-family: 'Courier New'">Witaj w czacie!</h1>
+<h2 style="font-family: 'Courier New'">Zaloguj sie:</h2>
 <br>
 <form action="/loginUser">
-    Login: <input type="text" name="nick">
-    <br>
-    Haslo: <input type="password" name="password">
-    <br>
-    <input type="submit" name="log_in" value="Zaloguj">
+    <div class="forTyping" style="font-family: 'Courier New'">
+        Login: <input type="text" name="nick">
+        <br>
+        <br>
+        Haslo: <input type="password" name="password">
+        <br>
+        <br>
+    </div>
+    <div class="forButtons">
+        <input type="submit" name="log_in" value="Zaloguj">
+    </div>
 </form>
 <br>
 <p style="color: red" th:text="${wrongLoginOrPasswordMsg}"></p>
 <br>
-lub zarejestruj sie:
+<h2 style="font-family: 'Courier New';">lub zarejestruj sie:</h2>
 <br>
 <form action="/registerPage">
+    <div class="forButtons">
     <input type="submit" name="go_register" value="Rejestruj">
+    </div>
 </form>
 </body>
 </html>
