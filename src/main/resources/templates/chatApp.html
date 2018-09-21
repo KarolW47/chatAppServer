@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>ChatApp</title>
     <style>
-        td {
 
+        ul {
+            border-bottom: solid 1px #4fb4fe;
+            margin: 12px;
         }
 
         textarea {
@@ -14,6 +16,7 @@
             border-width: 2px;
             font-family: "Courier New";
             font-size: large;
+            margin-right: 10px;
         }
 
         input {
@@ -37,7 +40,7 @@
     // }
     //
     // function myFunction(element) {
-    //     document.getElementById("myList").innerHTML = element;
+    //     document.getElementById("myMessageList").innerHTML = element;
     // }
     //
     // var getNewMessages = function () {
@@ -53,35 +56,40 @@
     //     http.send();
     // }
 </script>
-<div>
+<div align="center" style="position: relative; right: 3%">
     <h1 style="font-family: 'Courier New'">Czat appka :)</h1>
-    <div>
-        <table>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.nick}">nick</td>
-                <td th:text="${user.statusTxt}">statusTxt</td>
-            </tr>
-        </table>
+    <br>
+    <div style="position: relative; display: flex; flex-wrap: wrap; left: 20%">
+        <div style="position: relative; margin-right: 5px; margin-bottom: 5px;">
+            <div style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 200px; overflow: auto">
+                <ul id="myUserList" th:each="user : ${users}">
+                    <li th:text="${user.nick}">nick</li>
+                    <li th:text="${user.statusTxt}">statusTxt</li>
+                </ul>
+            </div>
+            <br>
+            <form action="/logOut">
+                <input style="position:relative; margin-top: 19px; right: 55px" type="submit"
+                       value="Wyloguj">
+            </form>
+        </div>
+        <div style="position: relative; margin-right: 5px; margin-bottom: 5px">
+            <div style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow: auto">
+                <ul id="myMessageList" th:each="message : ${messages}">
+                    <li th:text="${message.sender}">sender</li>
+                    <li th:text="${message.messageDate}">date</li>
+                    <li th:text="${message.text}">text</li>
+                </ul>
+            </div>
+            <br>
+            <div style="position: relative; left: 52px;">
+                <form action="/addMessage">
+                    <textarea cols="43" name="messageToAdd"></textarea>
+                    <input style="position: relative; bottom: 10px;" type="submit" value="Send">
+                </form>
+            </div>
+        </div>
     </div>
-    <br>
-    <form action="/logOut">
-        <input type="submit" value="Wyloguj">
-    </form>
-    <br>
-    <div>
-        <table id="myList">
-            <tr th:each="message : ${messages}">
-                <td th:text="${message.sender}">sender</td>
-                <td th:text="${message.messageDate}">date</td>
-                <td th:text="${message.text}">text</td>
-            </tr>
-        </table>
-    </div>
-    <br>
-    <form action="/addMessage">
-        <textarea name="messageToAdd"></textarea>
-        <input type="submit" value="Send">
-    </form>
 </div>
 </body>
 </html>

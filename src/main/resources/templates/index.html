@@ -25,31 +25,32 @@
     </style>
 </head>
 <body>
-<h1 style="font-family: 'Courier New'">Witaj w czacie!</h1>
-<h2 style="font-family: 'Courier New'">Zaloguj sie:</h2>
-<br>
-<form action="/loginUser">
-    <div class="forTyping" style="font-family: 'Courier New'">
-        Login: <input type="text" name="nick">
-        <br>
-        <br>
-        Haslo: <input type="password" name="password">
-        <br>
-        <br>
-    </div>
-    <div class="forButtons">
-        <input type="submit" name="log_in" value="Zaloguj">
-    </div>
-</form>
-<br>
-<p style="color: red" th:text="${wrongLoginOrPasswordMsg}"></p>
-<br>
-<h2 style="font-family: 'Courier New';">lub zarejestruj sie:</h2>
-<br>
-<form action="/registerPage">
-    <div class="forButtons">
-    <input type="submit" name="go_register" value="Rejestruj">
-    </div>
-</form>
+<div align="center" style="position: relative; right: 3%";>
+    <h1 style="font-family: 'Courier New'">Witaj w czacie!</h1>
+    <h2 style="font-family: 'Courier New'">Zaloguj sie:</h2>
+    <br>
+    <form action="/loginUser">
+        <div class="forTyping" style="font-family: 'Courier New'; position: relative; right: 2% ">
+            Login: <input type="text" name="nick">
+            <br>
+            <br>
+            Haslo: <input type="password" name="password">
+            <br>
+            <br>
+        </div>
+        <div class="forButtons">
+            <input type="submit" name="log_in" value="Zaloguj">
+        </div>
+    </form>
+    <p style="color: red" th:text="${wrongLoginOrPasswordMsg}"></p>
+    <br>
+    <h2 style="font-family: 'Courier New';">lub Zarejestruj sie:</h2>
+    <br>
+    <form action="/registerPage">
+        <div class="forButtons">
+            <input type="submit" name="go_register" value="Rejestruj">
+        </div>
+    </form>
+</div>
 </body>
 </html>

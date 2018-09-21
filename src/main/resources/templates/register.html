@@ -25,24 +25,30 @@
     </style>
 </head>
 <body>
-<h1 style="font-family: 'Courier New'">Rejestracja</h1>
-<form action=/registerUser method="post">
-    Login:
-    <input type="text" name="nick">
-    <br>
-    <br>
-    Haslo: <input type="password" name="password">
-    <br>
-    <br>
-    Email: <input type="text" name="email">
-    <br>
-    <br>
-    <button type="submit">Submit</button>
-</form>
-<br>
-<form action="/indexPage">
-    <button type="submit">Back</button>
-</form>
-<p style="color: red" th:text="${existingLoginMsg}"></p>
+<div align="center" style="position: relative; right: 3%;">
+    <div style="position: relative;">
+        <h1 style="font-family: 'Courier New'">Rejestracja</h1>
+    </div>
+    <form action=/registerUser method="post">
+        <div style="position: relative; margin-right: 30px; margin-bottom: 30px">
+            Login:
+            <input type="text" name="nick">
+            <br>
+            <br>
+            Haslo: <input type="password" name="password">
+            <br>
+            <br>
+            Email: <input type="text" name="email">
+            <br>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <p style="color: red" th:text="${existingLoginMsg}"></p>
+    <div style="position: relative; top: 20px">
+        <form action="/indexPage">
+            <button type="submit">Back</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
