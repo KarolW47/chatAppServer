@@ -76,13 +76,16 @@
     window.onload = updateMyScrollMethod();
 
     function updateMyScrollMethod() {
-        setInterval(updateScroll, 1000)
+        setInterval(updateScroll, 1)
     }
 
-    function updateScroll(){
+    function updateScroll() {
         var element = document.getElementById("scrollMess");
         element.scrollTop = element.scrollHeight;
+
     }
+
+
 </script>
 <div align="center" style="position: relative; right: 3%">
     <h1 style="font-family: 'Courier New'">Czat appka :)</h1>
@@ -111,14 +114,16 @@
             </form>
         </div>
         <div style="position: relative; margin-right: 5px; margin-bottom: 5px">
-            <div id="scrollMess" style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px;
-            overflow:auto;">
+            <div id="scrollMess"
+                 style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow:auto;">
                 <ul id="allMessages" style="list-style-type: none">
                     <LI>
-                        <ul class="mySeparator" id="myMessageList" th:each="message : ${messages}">
+                        <ul class="mySeparator" id="myMessageList" style="text-align: left" th:each="message : ${messages}">
 
-                            <li th:text="${message.sender}">sender</li>
-                            <li th:text="${message.messageDate}">date</li>
+
+                            <li style="display: inline; font-size: medium; font-weight: bold; color: gray; font-family: Impact"  th:text="${message.sender}">sender</li>
+
+                            <li style="display: inline; font-size: xx-small; color: gray; font-family: Impact" th:text="${message.messageDate}">date</li>
                             <li th:text="${message.text}">text</li>
 
                         </ul>
