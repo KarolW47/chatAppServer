@@ -7,8 +7,10 @@
 
         .mySeparator {
             border-bottom: solid 1px #4fb4fe;
-            margin: 12px;
+            margin: 5px;
             list-style-type: none;
+            position: relative;
+            right: 25px;
         }
 
         textarea {
@@ -37,28 +39,36 @@
     window.onload = startInterval();
 
     function startInterval() {
-        setInterval(getNewMessages, 1000);
+        console.log("startInterval");
+        setInterval("getNewMessages();", 1000);
     }
 
     function myFunction(element) {
-        var li = document.createElement("li");
-        var ul = document.createElement("ul");
+        console.log("myFunction");
+        // var lastElemId = element[0].id;
+        // if (lastElemId >) {
+            var li = document.createElement("li");
+            var ul = document.createElement("ul");
 
-        var li1 = document.createElement("li");
-        li1.innerHTML = "sender";
-        var li2 = document.createElement("li");
-        li2.innerHTML = "date"
-        var li3 = document.createElement("li");
-        li3.innerHTML = "text"
-        ul.appendChild(li1);
-        ul.appendChild(li2);
-        ul.appendChild(li3);
-        li.appendChild(ul);
-        // ul.innerHTML = element;
-        document.getElementById("allMessages").appendChild(li);
+            for (var i = 0; i < element.length; i++) {
+                var li1 = document.createElement("li");
+                li1.innerHTML = element[i].sender;
+                var li2 = document.createElement("li");
+                li2.innerHTML = element[i].messageDate;
+                var li3 = document.createElement("li");
+                li3.innerHTML = element[i].text;
+                ul.appendChild(li1);
+                ul.appendChild(li2);
+                ul.appendChild(li3);
+                li.appendChild(ul);
+                document.getElementById("allMessages").appendChild(li);
+            }
+        }
     }
 
     var getNewMessages = function () {
+
+        console.log("getNewMessages");
         var http = new XMLHttpRequest();
         var url = "/chatApp/messages";
         http.onreadystatechange = function () {
@@ -76,10 +86,10 @@
     window.onload = updateMyScrollMethod();
 
     function updateMyScrollMethod() {
-        setInterval(updateScroll, 1000)
+        setInterval("updateScroll();", 1000);
     }
 
-    function updateScroll(){
+    function updateScroll() {
         var element = document.getElementById("scrollMess");
         element.scrollTop = element.scrollHeight;
     }
@@ -88,11 +98,11 @@
     <h1 style="font-family: 'Courier New'">Czat appka :)</h1>
     <br>
     <div style="position: relative; display: flex; flex-wrap: wrap; left: 20%">
-        <div style="position: relative; margin-right: 5px; margin-bottom: 5px;">
+        <div style="position: relative; margin-right: 5px; margin-bottom: 5px; left: 20px;">
             <div style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 200px;
             overflow:
-            auto">
-                <ul id="allUsers" style="list-style-type: none">
+            auto;">
+                <ul id="allUsers" style="list-style-type: none;">
                     <li>
 
                         <ul class="mySeparator" id="myUserList" th:each="user : ${users}">
@@ -113,7 +123,7 @@
         <div style="position: relative; margin-right: 5px; margin-bottom: 5px">
             <div id="scrollMess" style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px;
             overflow:auto;">
-                <ul id="allMessages" style="list-style-type: none">
+                <ul id="allMessages" style="list-style-type: none;">
                     <LI>
                         <ul class="mySeparator" id="myMessageList" th:each="message : ${messages}">
 
