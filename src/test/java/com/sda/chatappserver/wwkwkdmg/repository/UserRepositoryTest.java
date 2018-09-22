@@ -27,14 +27,13 @@ public class UserRepositoryTest {
 	public void should_Find_User_By_Nick_And_Password() {
 		// Arrange
 		String nick = "Bobek";
-		String password = "12345";
-		userRepository.save(new User(null, nick, password, UserStatus.away, "", "", false));
+		String password = "123";
 
 		// Act
 		User result = userRepository.findUserByNickAndPassword(nick, password);
 
 		// Assert
-		assertThat(result.getId(), is(1l));
+		assertThat(result.getId(), is(10l));
 		assertThat(result.getNick(), is(nick));
 		assertThat(result.getPassword(), is(password));
 	}
