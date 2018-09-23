@@ -48,4 +48,10 @@ public class UserServiceImp implements UserService {
     public User getUserFromDbById(Long id) {
         return userRepository.findById(id).get();
     }
+
+
+    @Override
+    public void updateUserStatus(Long id, UserStatus status) {
+         userRepository.updateUserStatusById(id, status);
+    }
 }
