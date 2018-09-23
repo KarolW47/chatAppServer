@@ -43,14 +43,18 @@
         setInterval("getNewMessages();", 1000);
     }
 
+    var lastElemId = 0;
+
     function myFunction(element) {
         console.log("myFunction");
-        // var lastElemId = element[0].id;
-        // if (lastElemId >) {
+        var messListSize = element.length;
+
+        lastElemId = element[0].id;
+        if (lastElemId < element[messListSize].id) {
             var li = document.createElement("li");
             var ul = document.createElement("ul");
 
-            for (var i = 0; i < element.length; i++) {
+            for (var i = lastElemId; i < element.length; i++) {
                 var li1 = document.createElement("li");
                 li1.innerHTML = element[i].sender;
                 var li2 = document.createElement("li");
@@ -62,6 +66,8 @@
                 ul.appendChild(li3);
                 li.appendChild(ul);
                 document.getElementById("allMessages").appendChild(li);
+
+                return lastElemId = element[i].id;
             }
         }
     }
