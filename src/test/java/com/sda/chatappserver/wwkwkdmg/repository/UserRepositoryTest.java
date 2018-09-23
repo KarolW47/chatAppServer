@@ -2,40 +2,61 @@ package com.sda.chatappserver.wwkwkdmg.repository;
 
 
 import com.sda.chatappserver.wwkwkdmg.model.User;
-import com.sda.chatappserver.wwkwkdmg.model.UserStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 
 @RunWith(SpringRunner.class)
+
 @DataJpaTest
 public class UserRepositoryTest {
 
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-	@Test
-	public void should_Find_User_By_Nick_And_Password() {
-		// Arrange
-		String nick = "Bobek";
-		String password = "123";
+    @Test
+    public void should_Find_User_By_Nick_And_Password() {
+        // Arrange
+        String nick = "Bobek";
+        String password = "123";
 
-		// Act
-		User result = userRepository.findUserByNickAndPassword(nick, password);
+        // Act
+        User result = userRepository.findUserByNickAndPassword(nick, password);
 
-		// Assert
-		assertThat(result.getId(), is(10l));
-		assertThat(result.getNick(), is(nick));
-		assertThat(result.getPassword(), is(password));
-	}
+        // Assert
+        assertThat(result.getId(), is(10l));
+        assertThat(result.getNick(), is(nick));
+        assertThat(result.getPassword(), is(password));
+    }
+
+    @Test
+    public void should_Save_User_To_DB_And_Return_Him_From_It() {
+
+        String nick = "Harry";
+        User user = new User();
+        user.setNick(nick);
+        user.setPassword("123");
+        user.setId(10L);
+
+        userRepository.save(user);
+
+        List<User> userList = new ArrayList<>();
+        userRepository.findAll().forEach(usr -> userList.add(usr));
+
+        assertThat(userList.size(), is(3));
+        assertThat(userList.get(0).getNick(), is(nick));
+        assertThat(userList.get(0).getPassword(), is("123"));
+        assertThat(userList.get(0).getId(), is(10L));
+
+    }
 }
 

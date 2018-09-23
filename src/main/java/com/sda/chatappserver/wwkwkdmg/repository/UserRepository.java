@@ -7,5 +7,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findUserByNickAndPassword(String nick, String password);
 
+    default User findUserById() {
+        return null;
+    }
+
+
     User findByNick(String nick);
 }

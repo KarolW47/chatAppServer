@@ -1,19 +1,32 @@
 package com.sda.chatappserver.wwkwkdmg;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-//@RunWith(SpringRunner.class)
+import javax.sql.DataSource;
+
+
+//@Configuration
 @ComponentScan(basePackages = {"com.sda.chatappserver.wwkwkdmg.repository"})
-//@SpringBootTest
+//@EnableTransactionManagement
+@SpringBootTest
 public class WwkwkdmgApplicationTests {
 
     @Test
-    public void contextLoads() {
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("classpath:sql/schema.sql")
+                .addScript("classpath:sql/test-data.sql")
+                .build();
     }
+
+
+    /*@Test
+    public void contextLoads() {
+    }*/
 
 }

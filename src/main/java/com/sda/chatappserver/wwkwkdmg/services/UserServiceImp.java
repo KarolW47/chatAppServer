@@ -16,7 +16,7 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImp() {
         this.userRepository = userRepository;
     }
 
@@ -47,5 +47,10 @@ public class UserServiceImp implements UserService {
     @Override
     public User getUserFromDbById(Long id) {
         return userRepository.findById(id).get();
+    }
+
+    public User getUserFromDb(String nick, String password) {
+        return userRepository.findUserByNickAndPassword(nick, password);
+
     }
 }
