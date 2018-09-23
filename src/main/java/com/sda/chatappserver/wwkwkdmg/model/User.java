@@ -40,6 +40,6 @@ public class User {
     private String email;
 
     @NonNull
-    @Column(name = "log_status")
+    @Column(name = "logStatus")
     private boolean logStatus;
 }

@@ -98,7 +98,7 @@
     function startInterval() {
         console.log("Document state: " + document.readyState);
         document.getElementById("usermsg").addEventListener("keypress", submitOnEnter);
-        setInterval("getNewMessages()", 1000);
+        setInterval("getNewMessages()", 100);
     }
 
     var lastElemId = 0;
