@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,7 +14,7 @@ public class FixedMessage {
     private String sender;
     private Long recipient;
     private String text;
-    private LocalDateTime messageDate;
+    private String messageDate;
     private MessageStatus messageStatus;
 
 

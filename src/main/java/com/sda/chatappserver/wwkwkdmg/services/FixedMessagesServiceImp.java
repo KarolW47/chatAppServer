@@ -6,6 +6,7 @@ import com.sda.chatappserver.wwkwkdmg.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class FixedMessagesServiceImp implements FixedMessageService {
 
     @Override
     public List<FixedMessage> getFixedMessages() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm");
+
         List<Message> messageList = messageService.getAllMessages();
         List<User> userList = userService.getUserListFromDb();
         List<FixedMessage> fixedMessages = new ArrayList<>();
@@ -35,7 +38,7 @@ public class FixedMessagesServiceImp implements FixedMessageService {
                             userTakenFromMessage,
                             messageList.get(j).getRecipient(),
                             messageList.get(j).getText(),
-                            messageList.get(j).getMessageDate(),
+                            messageList.get(j).getMessageDate().format(formatter),
                             messageList.get(j).getMessageStatus()));
                 }
             }
