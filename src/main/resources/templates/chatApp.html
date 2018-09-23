@@ -5,9 +5,47 @@
     <title>ChatApp</title>
     <style>
 
-        ul {
+        .myMessageDateLi {
+            display: inline;
+            font-size: xx-small;
+            color: gray;
+            font-family: Impact;
+            margin: 5px;
+        }
+
+        .myMessageSenderLi {
+            display: inline;
+            font-size: medium;
+            font-weight: bold;
+            color: gray;
+            font-family: Verdana;
+            margin: 5px;
+        }
+
+        .myMessageTextLi {
+            font-family: "Courier New";
+            list-style-type: none;
+            margin: 5px;
             border-bottom: solid 1px #4fb4fe;
-            margin: 12px;
+            margin: 5px;
+            list-style-type: none;
+        }
+
+        .mySeparator {
+            margin: 5px;
+            list-style-type: none;
+            position: relative;
+            right: 50px;
+            text-align: left;
+        }
+
+        .mySeparator2 {
+            border-bottom: solid 1px #4fb4fe;
+            margin: 5px;
+            list-style-type: none;
+            position: relative;
+            right: 30px;
+            text-align: left;
         }
 
         textarea {
@@ -33,38 +71,94 @@
 </head>
 <body>
 <script>
-    // window.onload = startInterval;
-    //
-    // function startInterval() {
-    //     setInterval(getNewMessages, 1000);
-    // }
-    //
-    // function myFunction(element) {
-    //     document.getElementById("myMessageList").innerHTML = element;
-    // }
-    //
-    // var getNewMessages = function () {
-    //     var http = new XMLHttpRequest();
-    //     var url = "/chatApp";
-    //     http.onreadystatechange = function () {
-    //         if (this.readyState == 4 && this.status == 200) {
-    //             var obj = this.responseText;
-    //             myFunction(obj);
-    //         }
-    //     };
-    //     http.open("GET", url, true);
-    //     http.send();
-    // }
+    window.onload = startInterval();
+
+    function startInterval() {
+        console.log("startInterval");
+        setInterval("getNewMessages();", 100);
+    }
+
+    var lastElemId = 0;
+
+    function myFunction(element) {
+        console.log("myFunction");
+        var messListSize = element.length - 1;
+        var lastId = parseInt(element[messListSize].id);
+
+        if (lastElemId < lastId) {
+            var li = document.createElement("li");
+            var ul1 = document.createElement("ul");
+
+            for (var i = lastElemId; i < element.length; i++) {
+                var li1 = document.createElement("li");
+                li1.innerHTML = element[i].sender;
+                var li2 = document.createElement("li");
+                li2.innerHTML = element[i].messageDate;
+                var li3 = document.createElement("li");
+                li3.innerHTML = element[i].text;
+                li1.setAttribute('class', 'myMessageSenderLi');
+                li2.setAttribute('class', 'myMessageDateLi');
+                li3.setAttribute('class', 'myMessageTextLi');
+                ul1.setAttribute('class', 'mySeparator');
+                ul1.appendChild(li1);
+                ul1.appendChild(li2);
+                ul1.appendChild(li3);
+                li.appendChild(ul1);
+                document.getElementById("allMessages").appendChild(li);
+
+                lastElemId = element[i].id;
+            }
+        }
+    }
+
+    var getNewMessages = function () {
+
+        console.log("getNewMessages");
+        var http = new XMLHttpRequest();
+        var url = "/chatApp/messages";
+        http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);
+                myFunction(obj);
+            }
+        };
+        http.open("GET", url, true);
+        http.send();
+
+    }
+</script>
+<script>
+    window.onload = updateMyScrollMethod();
+
+    function updateMyScrollMethod() {
+        setInterval("updateScroll();", 1000);
+    }
+
+    function updateScroll() {
+        var element = document.getElementById("scrollMess");
+        element.scrollTop = element.scrollHeight;
+    }
 </script>
 <div align="center" style="position: relative; right: 3%">
     <h1 style="font-family: 'Courier New'">Czat appka :)</h1>
     <br>
     <div style="position: relative; display: flex; flex-wrap: wrap; left: 20%">
-        <div style="position: relative; margin-right: 5px; margin-bottom: 5px;">
-            <div style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 200px; overflow: auto">
-                <ul id="myUserList" th:each="user : ${users}">
-                    <li th:text="${user.nick}">nick</li>
-                    <li th:text="${user.statusTxt}">statusTxt</li>
+        <div style="position: relative; margin-right: 5px; margin-bottom: 5px; left: 20px;">
+            <div style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 200px;
+            overflow:
+            auto;">
+                <ul id="allUsers" style="list-style-type: none;">
+
+
+                    <li>
+                        <ul class="mySeparator2" id="myUserList" th:each="user : ${users}">
+                            <li th:text="${user.nick}">nick</li>
+                            <li th:text="${user.statusTxt}">statusTxt</li>
+
+                        </ul>
+                    </li>
+
+
                 </ul>
             </div>
             <br>
@@ -74,11 +168,9 @@
             </form>
         </div>
         <div style="position: relative; margin-right: 5px; margin-bottom: 5px">
-            <div style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow: auto">
-                <ul id="myMessageList" th:each="message : ${messages}">
-                    <li th:text="${message.sender}">sender</li>
-                    <li th:text="${message.messageDate}">date</li>
-                    <li th:text="${message.text}">text</li>
+            <div id="scrollMess"
+                 style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow:auto;">
+                <ul id="allMessages" style="list-style-type: none">
                 </ul>
             </div>
             <br>

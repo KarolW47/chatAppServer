@@ -1,6 +1,7 @@
 package com.sda.chatappserver.wwkwkdmg.controllers;
 
 import com.sda.chatappserver.wwkwkdmg.model.User;
+import com.sda.chatappserver.wwkwkdmg.model.UserStatus;
 import com.sda.chatappserver.wwkwkdmg.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,7 @@ public class UserController {
         User userToLogin = userService.getUserFromDbByLoginAndPassword(user.getNick(), user.getPassword());
         if (userToLogin != null) {
             user.setLogStatus(true);
+            userService.updateUserStatus(userToLogin.getId(),UserStatus.available);
             Cookie cookie = new Cookie("cookieAppChat", userToLogin.getId().toString());
             response.addCookie(cookie);
             return "redirect:/chatApp";
@@ -69,11 +71,16 @@ public class UserController {
         Optional<Cookie> myCookie = Arrays.stream(request.getCookies())
                 .filter(cookie -> "cookieAppChat".equals(cookie.getName()))
                 .findFirst();
-        Cookie oldCookie = myCookie.get();
-        oldCookie.setMaxAge(0);
-        response.addCookie(oldCookie);
 
-        return "index";
+        if (myCookie.isPresent()){
+            Cookie oldCookie = myCookie.get();
+            oldCookie.setMaxAge(0);
+            response.addCookie(oldCookie);
+            userService.updateUserStatus(Long.parseLong(oldCookie.getValue()), UserStatus.away);
+            return "index";
+        }else {
+            return "index";
+        }
     }
 }
 

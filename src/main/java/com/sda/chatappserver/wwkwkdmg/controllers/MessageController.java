@@ -28,12 +28,12 @@ public class MessageController {
     @RequestMapping("/addMessage")
     public String addChatMessage(@RequestParam String messageToAdd, HttpServletRequest request) {
         String idFromCookie = "";
-        Optional<Cookie> first = Arrays.stream(request.getCookies())
+        Optional<Cookie> firstMatchingCookie = Arrays.stream(request.getCookies())
                 .filter(cookie -> "cookieAppChat".equals(cookie.getName()))
                 .findFirst();
 
-        if (first.isPresent()) {
-            idFromCookie = first.get().getValue();
+        if (firstMatchingCookie.isPresent()) {
+            idFromCookie = firstMatchingCookie.get().getValue();
 
             Message message = new Message();
             message.setText(messageToAdd);
@@ -42,7 +42,10 @@ public class MessageController {
             message.setSender(Long.parseLong(idFromCookie));
             message.setMessageStatus(null);
             messageService.saveMessageToDB(message);
+
+            return "redirect:/chatApp";
+        }else {
+            return "index";
         }
-        return "redirect:/chatApp";
     }
 }

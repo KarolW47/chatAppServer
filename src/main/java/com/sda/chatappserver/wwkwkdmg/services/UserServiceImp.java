@@ -48,9 +48,9 @@ public class UserServiceImp implements UserService {
     public User getUserFromDbById(Long id) {
         return userRepository.findById(id).get();
     }
-
-    public User getUserFromDb(String nick, String password) {
-        return userRepository.findUserByNickAndPassword(nick, password);
-
+  
+    @Override
+    public void updateUserStatus(Long id, UserStatus status) {
+         userRepository.updateUserStatusById(id, status);
     }
 }
