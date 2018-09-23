@@ -5,7 +5,7 @@
     <title>ChatApp</title>
     <style>
 
-        .myMessageDateLi{
+        .myMessageDateLi {
             display: inline;
             font-size: xx-small;
             color: gray;
@@ -13,7 +13,7 @@
             margin: 5px;
         }
 
-        .myMessageSenderLi{
+        .myMessageSenderLi {
             display: inline;
             font-size: medium;
             font-weight: bold;
@@ -22,7 +22,7 @@
             margin: 5px;
         }
 
-        .myMessageTextLi{
+        .myMessageTextLi {
             font-family: "Courier New";
             list-style-type: none;
             margin: 5px;
@@ -39,7 +39,7 @@
             text-align: left;
         }
 
-        .mySeparator2{
+        .mySeparator2 {
             border-bottom: solid 1px #4fb4fe;
             margin: 5px;
             list-style-type: none;
@@ -82,7 +82,7 @@
 
     function myFunction(element) {
         console.log("myFunction");
-        var messListSize = element.length -1;
+        var messListSize = element.length - 1;
         var lastId = parseInt(element[messListSize].id);
 
         if (lastElemId < lastId) {
@@ -96,7 +96,7 @@
                 li2.innerHTML = element[i].messageDate;
                 var li3 = document.createElement("li");
                 li3.innerHTML = element[i].text;
-                li1.setAttribute('class','myMessageSenderLi');
+                li1.setAttribute('class', 'myMessageSenderLi');
                 li2.setAttribute('class', 'myMessageDateLi');
                 li3.setAttribute('class', 'myMessageTextLi');
                 ul1.setAttribute('class', 'mySeparator')
@@ -166,21 +166,9 @@
             </form>
         </div>
         <div style="position: relative; margin-right: 5px; margin-bottom: 5px">
-            <div id="scrollMess" style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow:auto;">
-            <div id="scrollMess" style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px;
-            overflow:auto;">
+            <div id="scrollMess"
+                 style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow:auto;">
                 <ul id="allMessages" style="list-style-type: none">
-                    <LI>
-                        <ul class="mySeparator" id="myMessageList" style="text-align: left" th:each="message : ${messages}">
-
-
-                            <li style="display: inline; font-size: medium; font-weight: bold; color: black; opacity: 0.7; "  th:text="${message.sender}">sender</li>
-
-                            <li style="display: inline; font-size: xx-small; color: gray; opacity: 0.5" th:text="${message.messageDate}">date</li>
-                            <li th:text="${message.text}">text</li>
-
-                        </ul>
-                    </LI>
                 </ul>
             </div>
             <br>
