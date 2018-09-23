@@ -5,12 +5,47 @@
     <title>ChatApp</title>
     <style>
 
+        .myMessageDateLi{
+            display: inline;
+            font-size: xx-small;
+            color: gray;
+            font-family: Impact;
+            margin: 5px;
+        }
+
+        .myMessageSenderLi{
+            display: inline;
+            font-size: medium;
+            font-weight: bold;
+            color: gray;
+            font-family: Verdana;
+            margin: 5px;
+        }
+
+        .myMessageTextLi{
+            font-family: "Courier New";
+            list-style-type: none;
+            margin: 5px;
+            border-bottom: solid 1px #4fb4fe;
+            margin: 5px;
+            list-style-type: none;
+        }
+
         .mySeparator {
+            margin: 5px;
+            list-style-type: none;
+            position: relative;
+            right: 50px;
+            text-align: left;
+        }
+
+        .mySeparator2{
             border-bottom: solid 1px #4fb4fe;
             margin: 5px;
             list-style-type: none;
             position: relative;
-            right: 25px;
+            right: 30px;
+            text-align: left;
         }
 
         textarea {
@@ -40,28 +75,38 @@
 
     function startInterval() {
         console.log("startInterval");
-        setInterval("getNewMessages();", 1000);
+        setInterval("getNewMessages();", 100);
     }
+
+    var lastElemId = 0;
 
     function myFunction(element) {
         console.log("myFunction");
-        // var lastElemId = element[0].id;
-        // if (lastElemId >) {
-            var li = document.createElement("li");
-            var ul = document.createElement("ul");
+        var messListSize = element.length -1;
+        var lastId = parseInt(element[messListSize].id);
 
-            for (var i = 0; i < element.length; i++) {
+        if (lastElemId < lastId) {
+            var li = document.createElement("li");
+            var ul1 = document.createElement("ul");
+
+            for (var i = lastElemId; i < element.length; i++) {
                 var li1 = document.createElement("li");
                 li1.innerHTML = element[i].sender;
                 var li2 = document.createElement("li");
                 li2.innerHTML = element[i].messageDate;
                 var li3 = document.createElement("li");
                 li3.innerHTML = element[i].text;
-                ul.appendChild(li1);
-                ul.appendChild(li2);
-                ul.appendChild(li3);
-                li.appendChild(ul);
+                li1.setAttribute('class','myMessageSenderLi');
+                li2.setAttribute('class', 'myMessageDateLi');
+                li3.setAttribute('class', 'myMessageTextLi');
+                ul1.setAttribute('class', 'mySeparator')
+                ul1.appendChild(li1);
+                ul1.appendChild(li2);
+                ul1.appendChild(li3);
+                li.appendChild(ul1);
                 document.getElementById("allMessages").appendChild(li);
+
+                lastElemId = element[i].id;
             }
         }
     }
@@ -105,7 +150,7 @@
                 <ul id="allUsers" style="list-style-type: none;">
                     <li>
 
-                        <ul class="mySeparator" id="myUserList" th:each="user : ${users}">
+                        <ul class="mySeparator2" id="myUserList" th:each="user : ${users}">
 
                             <li th:text="${user.nick}">nick</li>
                             <li th:text="${user.statusTxt}">statusTxt</li>
@@ -121,6 +166,7 @@
             </form>
         </div>
         <div style="position: relative; margin-right: 5px; margin-bottom: 5px">
+            <div id="scrollMess" style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px; overflow:auto;">
             <div id="scrollMess" style="border:solid #7efe93 2px; border-radius: 5px; height: 350px; width: 500px;
             overflow:auto;">
                 <ul id="allMessages" style="list-style-type: none">
