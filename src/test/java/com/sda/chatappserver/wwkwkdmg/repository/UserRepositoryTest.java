@@ -24,7 +24,7 @@ public class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void should_Find_User_By_Nick_And_Password() {
+    public void shouldFindUserByNickAndPassword() {
         // Arrange
         String nick = "Bobek";
         String password = "123";
@@ -39,7 +39,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void should_Save_User_To_DB_And_Return_Him_From_It() {
+    public void shouldSaveUserToDbAndReturnHimFromIt() {
 
         String nick = "Harry";
         User user = new User();
@@ -49,14 +49,19 @@ public class UserRepositoryTest {
 
         userRepository.save(user);
 
-        List<User> userList = new ArrayList<>();
+        List <User> userList = new ArrayList<>();
         userRepository.findAll().forEach(usr -> userList.add(usr));
 
         assertThat(userList.size(), is(3));
         assertThat(userList.get(0).getNick(), is(nick));
         assertThat(userList.get(0).getPassword(), is("123"));
         assertThat(userList.get(0).getId(), is(10L));
+    }
+
+    @Test
+    public void should(){
 
     }
+
 }
 
