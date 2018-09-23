@@ -71,11 +71,34 @@
 </head>
 <body>
 <script>
-    window.onload = startInterval();
+
+    window.onload = function () {
+        startInterval();
+    }
+
+    function updateMyScrollMethod() {
+        setInterval("updateScroll();", 1000);
+    }
+
+    function updateScroll() {
+        var element = document.getElementById("scrollMess");
+        element.scrollTop = element.scrollHeight;
+    }
+
+    function submitOnEnter(event) {
+        if (event.which === 13 && !event.shiftKey) {
+            console.log("Wyślij");
+            document.getElementById("sendButton").click();
+            event.target.value = "";
+        } else {
+            console.log("Nowa linia");
+        }
+    }
 
     function startInterval() {
-        console.log("startInterval");
-        setInterval("getNewMessages();", 100);
+        console.log("Document state: " + document.readyState);
+        document.getElementById("usermsg").addEventListener("keypress", submitOnEnter);
+        setInterval("getNewMessages()", 1000);
     }
 
     var lastElemId = 0;
@@ -108,6 +131,8 @@
 
                 lastElemId = element[i].id;
             }
+            var textarea = document.getElementById('scrollMess');
+            textarea.scrollTop = textarea.scrollHeight;
         }
     }
 
@@ -124,21 +149,9 @@
         };
         http.open("GET", url, true);
         http.send();
-
     }
 </script>
-<script>
-    window.onload = updateMyScrollMethod();
 
-    function updateMyScrollMethod() {
-        setInterval("updateScroll();", 1000);
-    }
-
-    function updateScroll() {
-        var element = document.getElementById("scrollMess");
-        element.scrollTop = element.scrollHeight;
-    }
-</script>
 <div align="center" style="position: relative; right: 3%">
     <h1 style="font-family: 'Courier New'">Czat appka :)</h1>
     <br>
@@ -149,12 +162,11 @@
             auto;">
                 <ul id="allUsers" style="list-style-type: none;">
 
-
+                  
                     <li>
                         <ul class="mySeparator2" id="myUserList" th:each="user : ${users}">
                             <li th:text="${user.nick}">nick</li>
                             <li th:text="${user.statusTxt}">statusTxt</li>
-
                         </ul>
                     </li>
 
@@ -175,9 +187,10 @@
             </div>
             <br>
             <div style="position: relative; left: 52px;">
+
                 <form action="/addMessage">
-                    <textarea cols="43" name="messageToAdd"></textarea>
-                    <input style="position: relative; bottom: 10px;" type="submit" value="Send">
+                    <textarea id="usermsg" cols="43" name="messageToAdd"></textarea>
+                    <input style="position: relative; bottom: 10px;" id="sendButton" type="submit" value="Send">
                 </form>
             </div>
         </div>
