@@ -122,7 +122,7 @@
                 li1.setAttribute('class', 'myMessageSenderLi');
                 li2.setAttribute('class', 'myMessageDateLi');
                 li3.setAttribute('class', 'myMessageTextLi');
-                ul1.setAttribute('class', 'mySeparator')
+                ul1.setAttribute('class', 'mySeparator');
                 ul1.appendChild(li1);
                 ul1.appendChild(li2);
                 ul1.appendChild(li3);
@@ -161,12 +161,16 @@
             overflow:
             auto;">
                 <ul id="allUsers" style="list-style-type: none;">
+
+                  
                     <li>
                         <ul class="mySeparator2" id="myUserList" th:each="user : ${users}">
                             <li th:text="${user.nick}">nick</li>
                             <li th:text="${user.statusTxt}">statusTxt</li>
                         </ul>
                     </li>
+
+
                 </ul>
             </div>
             <br>
