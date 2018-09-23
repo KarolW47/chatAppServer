@@ -24,7 +24,7 @@ public class FixedMessagesServiceImp implements FixedMessageService {
 
     @Override
     public List<FixedMessage> getFixedMessages() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy, HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy  HH:mm");
 
         List<Message> messageList = messageService.getAllMessages();
         List<User> userList = userService.getUserListFromDb();
@@ -35,7 +35,7 @@ public class FixedMessagesServiceImp implements FixedMessageService {
                     String userTakenFromMessage = userList.get(i).getNick();
 
                     fixedMessages.add(new FixedMessage(messageList.get(j).getId(),
-                            userTakenFromMessage,
+                            userTakenFromMessage.toUpperCase(),
                             messageList.get(j).getRecipient(),
                             messageList.get(j).getText(),
                             messageList.get(j).getMessageDate().format(formatter),
